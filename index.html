@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code With Casper | Professional Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #ffffff;
+            --accent: #ff0000;
+            --accent-light: #ff3333;
+            --accent-dark: #cc0000;
+            --gray: #1a1a1a;
+            --light-gray: #2a2a2a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+            color: var(--secondary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Particles Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        section {
+            padding: 120px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 4rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            border-radius: 5px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+            color: var(--secondary);
+            border: none;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-dark), var(--accent));
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .accent {
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 0;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 40px;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section with Advanced Gradient */
+        #home {
+            position: relative;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-content h1 {
+            font-size: 6rem;
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 25px;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            opacity: 0.1;
+            filter: blur(40px);
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .shape:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 15s;
+        }
+
+        /* Glass Cards for Services */
+        #services {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 40%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 50px 40px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .service-card:hover::before {
+            width: 100%;
+            opacity: 0.1;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        /* Products Section */
+        #products {
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 40%);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-header {
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+            color: var(--secondary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .product-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .bronze .product-icon {
+            background: linear-gradient(45deg, #cd7f32, #b08d57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .silver .product-icon {
+            background: linear-gradient(45deg, #c0c0c0, #e8e8e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold .product-icon {
+            background: linear-gradient(45deg, #ffd700, #ffec8b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .product-period {
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        .product-features {
+            padding: 40px 30px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .product-features ul {
+            list-style: none;
+        }
+
+        .product-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+
+        .product-features i {
+            margin-right: 12px;
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-cta {
+            padding: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .product-btn {
+            display: inline-block;
+            padding: 15px 0;
+            background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+            color: var(--secondary);
+            border: none;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .product-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        /* About Section */
+        #about {
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, rgba(255, 107, 107, 0.1) 0%, transparent 40%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 20px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image {
+            position: relative;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .about-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .skills {
+            margin-top: 40px;
+        }
+
+        .skill {
+            margin-bottom: 25px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Reviews Section */
+        #reviews {
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 107, 107, 0.1) 0%, transparent 40%);
+        }
+
+        .reviews-container {
+            position: relative;
+        }
+
+        .reviews-slider {
+            display: flex;
+            overflow: hidden;
+            gap: 40px;
+            padding: 20px 0;
+        }
+
+        .review-card {
+            min-width: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .review-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+        }
+
+        .reviewer-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .reviewer-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .reviewer-info p {
+            font-size: 1rem;
+            color: #aaa;
+            margin: 0;
+        }
+
+        .stars {
+            color: gold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: 
+                radial-gradient(circle at 70% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 30% 70%, rgba(255, 107, 107, 0.1) 0%, transparent 40%);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .contact-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 50px 40px;
+            border-radius: 25px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .contact-form.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--secondary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+            color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg) scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 4.5rem;
+            }
+
+            h2 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 4rem;
+            }
+
+            h2 {
+                font-size: 3rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text {
+                padding-right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 80px;
+                transition: all 0.5s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .shape {
+                display: none;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 100px 20px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .service-card {
+                padding: 40px 30px;
+            }
+
+            .contact-form {
+                padding: 40px 30px;
+            }
+
+            .products-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Container -->
+    <div id="particles-js"></div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/+212622651519" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">CODE WITH <span>CASPER</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>CODE WITH <span class="accent">CASPER</span></h1>
+                <p>Elite Developer & Designer creating next-level digital experiences that push boundaries. Let's build the future together.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn">Start Project</a>
+                    <a href="#products" class="btn">View Products</a>
+                </div>
+            </div>
+        </div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2>My <span class="accent">Services</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Cutting-edge websites built with latest technologies, responsive design, and blazing fast performance.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>App Development</h3>
+                    <p>Native and cross-platform mobile applications with seamless UX and powerful functionality.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>User-centered design solutions that combine aesthetics with functionality for engaging experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <div class="container">
+            <h2>My <span class="accent">Products</span></h2>
+            <div class="products-grid">
+                <!-- Bronze Product -->
+                <div class="product-card bronze">
+                    <div class="product-header">
+                        <div class="product-badge">POPULAR</div>
+                        <div class="product-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3 class="product-title">Bronze</h3>
+                        <div class="product-price">100.DHs</div>
+                        <div class="product-period">one-time payment</div>
+                    </div>
+                    <div class="product-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Panel 1 week</li>
+                            <li><i class="fas fa-check"></i> Chams menu</li>
+                            <li><i class="fas fa-check"></i> Aimbot</li>
+                            <li><i class="fas fa-check"></i> Fast switch</li>
+                            <li><i class="fas fa-check"></i> Sniper Aim</li>
+                            
+                            
+                        </ul>
+                    </div>
+                    <div class="product-cta">
+                        <button class="product-btn" onclick="redirectToWhatsApp('Bronze Package')">Get Started</button>
+                    </div>
+                </div>
+
+                <!-- Silver Product -->
+                <div class="product-card silver">
+                    <div class="product-header">
+                        <div class="product-badge">BEST VALUE</div>
+                        <div class="product-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 class="product-title">Silver</h3>
+                        <div class="product-price">200.Dhs</div>
+                        <div class="product-period">one-time payment</div>
+                    </div>
+                    <div class="product-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Bronze</li>
+                            <li><i class="fas fa-check"></i> Ghost Hack</li>
+                            <li><i class="fas fa-check"></i> Teleport</li>
+                            <li><i class="fas fa-check"></i> Glitch fire</li>
+                            <li><i class="fas fa-check"></i> Camera left</li>
+                            <li><i class="fas fa-check"></i> 1 mounth</li>
+                            <li><i class="fas fa-times"></i> for life</li>
+                        </ul>
+                    </div>
+                    <div class="product-cta">
+                        <button class="product-btn" onclick="redirectToWhatsApp('Silver Package')">Get Started</button>
+                    </div>
+                </div>
+
+                <!-- Gold Product -->
+                <div class="product-card gold">
+                    <div class="product-header">
+                        <div class="product-badge">PREMIUM</div>
+                        <div class="product-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="product-title">Gold</h3>
+                        <div class="product-price">300.Dhs</div>
+                        <div class="product-period">one-time payment</div>
+                    </div>
+                    <div class="product-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Silver</li>
+                            <li><i class="fas fa-check"></i> Unlimited Pages</li>
+                            <li><i class="fas fa-check"></i> Advanced E-commerce</li>
+                            <li><i class="fas fa-check"></i> Custom Web Application</li>
+                            <li><i class="fas fa-check"></i> Premium Plugins</li>
+                            <li><i class="fas fa-check"></i> 6 Months Support</li>
+                            <li><i class="fas fa-check"></i> Priority Development</li>
+                        </ul>
+                    </div>
+                    <div class="product-cta">
+                        <button class="product-btn" onclick="redirectToWhatsApp('Gold Package')">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About <span class="accent">Me</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm Casper, an elite developer with a passion for creating digital experiences that push boundaries. With over 5 years in the industry, I specialize in turning complex ideas into simple, beautiful, and intuitive designs.</p>
+                    <p>My journey started when I built my first website at 16, and since then I've been constantly evolving with the digital landscape, always staying ahead of the curve.</p>
+                    
+                    <div class="skills">
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>Web Development</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>UI/UX Design</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>App Development</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <!-- Image would go here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+        <div class="container">
+            <h2>Client <span class="accent">Reviews</span></h2>
+            <div class="reviews-container">
+                <div class="reviews-slider">
+                    <div class="review-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"Casper transformed our vision into a digital masterpiece. The Gold package was worth every penny - our revenue increased by 300%!"</p>
+                        <div class="reviewer">
+                            <div class="reviewer-img">SJ</div>
+                            <div class="reviewer-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>CEO, TechSolutions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"Working with Casper was transformative. The attention to detail and technical expertise is unmatched in the industry."</p>
+                        <div class="reviewer">
+                            <div class="reviewer-img">MC</div>
+                            <div class="reviewer-info">
+                                <h4>Michael Chen</h4>
+                                <p>Founder, AppVenture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact <span class="accent">Me</span></h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Location</h3>
+                            <p>casablanca, Morocco</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+212622651519</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>anassakkadtttt@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p>+212622651519</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message via WhatsApp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Code With Casper</h3>
+                    <p>Creating next-level digital experiences that push boundaries. Let's build the future together.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Products</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bronze Package</a></li>
+                        <li><a href="#">Silver Package</a></li>
+                        <li><a href="#">Gold Package</a></li>
+                        <li><a href="#">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+212622651519">+212622651519</a></li>
+                        <li><a href="https://wa.me/212622651519">WhatsApp: +212622651519</a></li>
+                        <li><a href="mailto:contact@codewithlucky.com">contact@codewithlucky.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Code With Casper. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: ["#ff0000", "#ff6b6b"]
+                },
+                shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ff0000",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.5
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // WhatsApp Integration Functions
+        function redirectToWhatsApp(packageName = '') {
+            const phoneNumber = '212622651519';
+            let message = 'Hi Casper, I visited your website and would like to discuss a project.';
+            
+            if (packageName) {
+                message = `Hi Casper, I'm interested in the ${packageName}. Can you provide more details?`;
+            }
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+
+        function submitContactForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            const phoneNumber = '212622651519';
+            const whatsappMessage = `New Contact Form Submission:%0A%0AName: ${name}%0AEmail: ${email}%0ASubject: ${subject}%0AMessage: ${message}`;
+            
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+            
+            return false; // Prevent default form submission
+        }
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate skill bars
+                    if (entry.target.id === 'about') {
+                        const skillLevels = entry.target.querySelectorAll('.skill-level');
+                        skillLevels.forEach(level => {
+                            const width = level.getAttribute('data-level');
+                            level.style.width = width + '%';
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hero content
+            const heroContent = document.querySelector('.hero-content');
+            heroContent.classList.add('visible');
+            
+            // Sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const heading = section.querySelector('h2');
+                if (heading) observer.observe(heading);
+                
+                // Service cards
+                const serviceCards = section.querySelectorAll('.service-card');
+                serviceCards.forEach(card => observer.observe(card));
+                
+                // Product cards
+                const productCards = section.querySelectorAll('.product-card');
+                productCards.forEach(card => observer.observe(card));
+                
+                // About elements
+                const aboutText = section.querySelector('.about-text');
+                if (aboutText) observer.observe(aboutText);
+                
+                const aboutImage = section.querySelector('.about-image');
+                if (aboutImage) observer.observe(aboutImage);
+                
+                // Review cards
+                const reviewCards = section.querySelectorAll('.review-card');
+                reviewCards.forEach(card => observer.observe(card));
+                
+                // Contact elements
+                const contactItems = section.querySelectorAll('.contact-item');
+                contactItems.forEach(item => observer.observe(item));
+                
+                const contactForm = section.querySelector('.contact-form');
+                if (contactForm) observer.observe(contactForm);
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitContactForm();
+            });
+        });
+    </script>
+</body>
+</html>
